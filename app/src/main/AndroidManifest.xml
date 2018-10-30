@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="cn.dankal.demo">
 
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
   <uses-permission android:name="android.permission.INTERNET"/>
 
   <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -20,6 +21,7 @@
     <activity android:name=".user.LoginActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
+
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
@@ -34,6 +36,12 @@
     <activity android:name=".interfaceTest.InterfaceTestActivity">
     </activity>
     <activity android:name=".DouBanMvp.DouBanActivity">
+    </activity>
+    <activity android:name=".ZhiHuMvp.ZhiHuActivity">
+    </activity>
+    <activity android:name=".ZhiHuTest.ZhiHuTestActivity">
+    </activity>
+    <activity android:name=".LoginTest.LoginTestActivity">
     </activity>
   </application>
 

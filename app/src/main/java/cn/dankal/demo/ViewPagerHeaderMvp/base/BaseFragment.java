@@ -21,7 +21,7 @@ public abstract class BaseFragment<V, T extends BasePresenter<V>> extends Fragme
   public void onCreate(Bundle savedInstance) {
     super.onCreate(savedInstance);
     mPresenter = createPresenter();
-    //mPresenter.attachView((V)this);
+    mPresenter.attachView((V) this);
   }
 
   @Override

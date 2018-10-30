@@ -149,4 +149,19 @@
         android:layout_width="wrap_content" android:layout_height="wrap_content"
         android:text="豆瓣入口" android:layout_marginLeft="20dp"
         android:textSize="18sp"/>
+
+  <Button android:id="@+id/btn_zhihu"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_marginLeft="20dp" android:text="知乎入口"
+      android:textSize="18sp"/>
+
+  <Button android:id="@+id/btn_zhihu_test"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_marginLeft="20dp" android:text="知乎测试入口"
+      android:textSize="18sp"/>
+
+  <Button android:id="@+id/btn_login_test"
+      android:layout_width="wrap_content" android:layout_height="wrap_content"
+      android:layout_marginLeft="20dp" android:text="登录测试入口"
+      android:textSize="18sp"/>
 </LinearLayout>

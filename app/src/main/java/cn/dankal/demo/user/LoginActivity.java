@@ -11,8 +11,11 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import cn.dankal.basic_lib.base.BaseActivity;
 import cn.dankal.demo.DouBanMvp.DouBanActivity;
+import cn.dankal.demo.LoginTest.LoginTestActivity;
 import cn.dankal.demo.R;
 import cn.dankal.demo.ViewPagerHeaderMvp.activity.LeafActivity;
+import cn.dankal.demo.ZhiHuMvp.ZhiHuActivity;
+import cn.dankal.demo.ZhiHuTest.ZhiHuTestActivity;
 
 /**
  * @author leaflc
@@ -32,15 +35,40 @@ public class LoginActivity extends BaseActivity implements LoginContact.LoginVie
 
     @BindView(R.id.btn_view_pager) Button mBtnViewPager;//recyclerView用作头部广告 临时
     @BindView(R.id.btn_douban) Button mBtnDouBan;//豆瓣临时入口
+  @BindView(R.id.btn_zhihu) Button mBtnZhiHu;//知乎临时入口
+  @BindView(R.id.btn_zhihu_test) Button mBtnZhiHuTest;//知乎测试MVP模式的入口
+  @BindView(R.id.btn_login_test) Button mBtnLoginTest;//登录测试入口
 
-    @OnClick(R.id.btn_view_pager) void onClickViewpager(View view) {
+  @OnClick({R.id.btn_view_pager, R.id.btn_douban, R.id.btn_zhihu
+      , R.id.btn_zhihu_test, R.id.btn_login_test}) void onClickViewpager(View view) {
+    switch (view.getId()) {
+      case R.id.btn_view_pager:
         Intent intent = new Intent(view.getContext(), LeafActivity.class);
         startActivity(intent);
+        break;
+      case R.id.btn_douban:
+        Intent intentDouBan = new Intent(view.getContext(), DouBanActivity.class);
+        startActivity(intentDouBan);
+        break;
+      case R.id.btn_zhihu:
+        Intent intentZhiHu = new Intent(view.getContext(), ZhiHuActivity.class);
+        startActivity(intentZhiHu);
+        break;
+      case R.id.btn_zhihu_test:
+        Intent intentZhiHuTest = new Intent(view.getContext(), ZhiHuTestActivity.class);
+        startActivity(intentZhiHuTest);
+        break;
+      case R.id.btn_login_test:
+        Intent intentLoginTest = new Intent(view.getContext(), LoginTestActivity.class);
+        startActivity(intentLoginTest);
+        break;
+      default:
+        break;
+    }
     }
 
     @OnClick(R.id.btn_douban) void onClickDouBan(View view) {
-        Intent intent = new Intent(view.getContext(), DouBanActivity.class);
-        startActivity(intent);
+
     }
     private LoginPresenter presenter = new LoginPresenter();
     private TimeCount timeCount;

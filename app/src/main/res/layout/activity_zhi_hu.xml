@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    tools:context=".ZhiHuMvp.ZhiHuActivity" android:orientation="vertical">
+  <include layout="@layout/activity_view_toolbar"/>
+  <android.support.design.widget.TabLayout android:id="@+id/tab_zhihu"
+      android:layout_width="match_parent" android:layout_height="wrap_content"
+      app:tabIndicatorColor="#F00" app:tabSelectedTextColor="#F00"
+      app:tabTextColor="#1d1c1d" android:background="@color/card_3"
+      app:tabMaxWidth="200dp" app:tabMinWidth="20dp">
+  </android.support.design.widget.TabLayout>
+  <!--可滑动的布局内容-->
+  <android.support.v4.view.ViewPager android:id="@+id/vp_zhihu"
+      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+</LinearLayout>
