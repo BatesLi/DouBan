@@ -11,7 +11,6 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import cn.dankal.basic_lib.base.BaseActivity;
 import cn.dankal.demo.DouBanMvp.DouBanActivity;
-import cn.dankal.demo.LoginTest.LoginTestActivity;
 import cn.dankal.demo.R;
 import cn.dankal.demo.ViewPagerHeaderMvp.activity.LeafActivity;
 import cn.dankal.demo.ZhiHuMvp.ZhiHuActivity;
@@ -57,10 +56,6 @@ public class LoginActivity extends BaseActivity implements LoginContact.LoginVie
       case R.id.btn_zhihu_test:
         Intent intentZhiHuTest = new Intent(view.getContext(), ZhiHuTestActivity.class);
         startActivity(intentZhiHuTest);
-        break;
-      case R.id.btn_login_test:
-        Intent intentLoginTest = new Intent(view.getContext(), LoginTestActivity.class);
-        startActivity(intentLoginTest);
         break;
       default:
         break;

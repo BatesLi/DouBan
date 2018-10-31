@@ -33,7 +33,7 @@
         android:layout_centerVertical="true" android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/iv_userIconName" android:background="@color/colorCursor"/>
 
-    <EditText android:id="@+id/edit_userName"
+    <EditText android:id="@+id/edit_user_name"
         android:layout_width="match_parent" android:layout_height="30dp"
         android:layout_centerVertical="true"
         android:layout_marginLeft="10dp"
@@ -85,7 +85,7 @@
         android:background="@color/colorCursor"/>
 
     <EditText
-        android:id="@+id/et_password"
+        android:id="@+id/edit_user_password"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_centerVertical="true"
