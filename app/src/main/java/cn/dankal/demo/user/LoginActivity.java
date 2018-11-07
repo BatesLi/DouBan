@@ -36,10 +36,9 @@ public class LoginActivity extends BaseActivity implements LoginContact.LoginVie
     @BindView(R.id.btn_douban) Button mBtnDouBan;//豆瓣临时入口
   @BindView(R.id.btn_zhihu) Button mBtnZhiHu;//知乎临时入口
   @BindView(R.id.btn_zhihu_test) Button mBtnZhiHuTest;//知乎测试MVP模式的入口
-  @BindView(R.id.btn_login_test) Button mBtnLoginTest;//登录测试入口
 
   @OnClick({R.id.btn_view_pager, R.id.btn_douban, R.id.btn_zhihu
-      , R.id.btn_zhihu_test, R.id.btn_login_test}) void onClickViewpager(View view) {
+      , R.id.btn_zhihu_test}) void onClickViewpager(View view) {
     switch (view.getId()) {
       case R.id.btn_view_pager:
         Intent intent = new Intent(view.getContext(), LeafActivity.class);
