@@ -1,16 +1,16 @@
 package cn.dankal.demo.ViewPagerHeaderMvp.activity;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.design.widget.TabLayout;
 import butterknife.BindView;
 import cn.dankal.demo.R;
-import cn.dankal.demo.ViewPagerHeaderMvp.fragment.BlankFragment;
-import cn.dankal.demo.ViewPagerHeaderMvp.fragment.InquisitiveFragment;
 import cn.dankal.demo.ViewPagerHeaderMvp.adapter.ViewPagerFgAdapter;
 import cn.dankal.demo.ViewPagerHeaderMvp.base.BaseActivity;
 import cn.dankal.demo.ViewPagerHeaderMvp.base.BasePresenter;
+import cn.dankal.demo.ViewPagerHeaderMvp.fragment.InquisitiveFragment;
+import cn.dankal.demo.ViewPagerHeaderMvp.fragment.LoginFragment;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +37,8 @@ public class LeafActivity extends BaseActivity {
 
   private void initTabView() {
     List<Fragment> baseFragmentList = new ArrayList<>();
-    baseFragmentList.add(new BlankFragment());
-    baseFragmentList.add(new BlankFragment());
+    baseFragmentList.add(new LoginFragment());
+    baseFragmentList.add(new LoginFragment());
     baseFragmentList.add(new InquisitiveFragment());
     mViewPagerContentLeaf.setOffscreenPageLimit(3);
     mViewPagerContentLeaf.setAdapter(

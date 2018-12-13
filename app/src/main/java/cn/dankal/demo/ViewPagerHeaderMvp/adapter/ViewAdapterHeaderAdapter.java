@@ -1,29 +1,19 @@
 package cn.dankal.demo.ViewPagerHeaderMvp.adapter;
 
 import android.content.Context;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import cn.dankal.basic_lib.util.ToastUtil;
 import cn.dankal.demo.R;
-import cn.dankal.demo.ViewPagerHeaderMvp.ViewHolder.BottomViewHolder;
 import cn.dankal.demo.ViewPagerHeaderMvp.ViewHolder.ContentViewHolder;
-import cn.dankal.demo.ViewPagerHeaderMvp.ViewHolder.HeaderViewHolder;
+import cn.dankal.demo.ViewPagerHeaderMvp.ViewHolder.FAQViewHolder;
+import cn.dankal.demo.ViewPagerHeaderMvp.bean.DataListTree;
+import cn.dankal.demo.ViewPagerHeaderMvp.bean.FAQData;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -39,6 +29,10 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
 
   public Context mContext;
   public List<Integer> mData;
+  public List<FAQData> mFaqData;//头部 recycler的临时数据
+  public FAQHeaderAdapter mFaqHeaderAdapter;//头部的 adapter
+  public ExpandableRecyclerAdapter mExpandableRecyclerAdapter; //头部 二号adapter
+  public List<DataListTree<String, String>> mDataListTree;// 头部 二号 recycler的临时数据
   public List<ImageView> mHeaderAdData;
   public int[] imgData =
       {R.mipmap.item1, R.mipmap.item2, R.mipmap.item3, R.mipmap.item4, R.mipmap.item5};
@@ -63,8 +57,6 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
   public int getItemViewType(int position) {
     if (mHeaderView == 0 && position == 0) {
       return ITEM_TYPE_HEADER;
-    } else if (mBottomView != 0 && position >= mData.size() + mHeaderView) {
-      return ITEM_TYPE_BOTTOM;
     } else {
       return ITEM_TYPE_CONTENT;
     }
@@ -73,43 +65,72 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
   @NonNull @Override
   public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
     if (viewType == ITEM_TYPE_HEADER) {
-      return new HeaderViewHolder(
-          mLayoutInflater.inflate(R.layout.item_news_header, null));
+      return new FAQViewHolder(mLayoutInflater.inflate(R.layout.item_faq, parent, false));
     } else if (viewType == ITEM_TYPE_CONTENT) {
       return new ContentViewHolder(mLayoutInflater.inflate(R.layout.item_news, parent, false));
-    } else if (viewType == ITEM_TYPE_BOTTOM) {
-      return new BottomViewHolder(
-          mLayoutInflater.inflate(R.layout.item_news_bottom, parent, false));
     }
     return null;
   }
-
   //onBindViewHolder()此方法是绑定数据
   @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
     if (holder instanceof ContentViewHolder) {
       //转型
       //ContentViewHolder contentHolder = (ContentViewHolder) holder;
-    } else if (holder instanceof HeaderViewHolder) {
+    /*} else if (holder instanceof HeaderViewHolder) {
       HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-
       mHeaderAdData = new ArrayList<>();
       for (int i = 0; i <= 4; i++) {
         ImageView imageView = new ImageView(mContext);
         imageView.setBackgroundResource(imgData[i]);
         mHeaderAdData.add(imageView);
-      }
+    }
       mViewPagerImageAdapterHead = new ViewPagerImageAdapterHead(mContext, mHeaderAdData);
-      setUpViewPager(headerHolder.mVpHeader, mHeaderAdData, headerHolder.mLlHottestIndicator);
+      setUpViewPager(headerHolder.mVpHeader, mHeaderAdData, headerHolder.mLlHottestIndicator);*/
+    } else if (holder instanceof FAQViewHolder) {
+      FAQViewHolder faqViewHolder = (FAQViewHolder) holder;
+      //mFaqData = new ArrayList<>();
+      /*for (int i = 0; i < 2;i++) {
+       FAQData faqData = new FAQData("问题分类",i);
+      mFaqData.add(faqData);
+      }*/
+      mDataListTree = new ArrayList<>();
+      //带有泛型的类如何处理
+      List<String> faqs = new ArrayList<>();
+      faqs.add("");
+      faqs.add("");
+      faqs.add("");
+      faqs.add("");
+
+      mDataListTree.add(new DataListTree<>("问题分类", faqs));
+
+      mExpandableRecyclerAdapter = new ExpandableRecyclerAdapter(mContext, mDataListTree);
+      mExpandableRecyclerAdapter.setData(mDataListTree);
+      faqViewHolder.mRecyclerFaq.setAdapter(mExpandableRecyclerAdapter);
+      RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+      layoutManager.setAutoMeasureEnabled(true);
+      faqViewHolder.mRecyclerFaq.setLayoutManager(layoutManager);
+      //setFAQHeaderListener(mFaqHeaderAdapter);
     }
   }
 
+  /* private void setFAQHeaderListener(FAQHeaderAdapter faqHeaderAdapter) {
+       faqHeaderAdapter.setListener(new MeOnItemClickListener() {
+         @Override public void onParentItemClick(View v, int position, FAQHeaderDataBean dataBean) {
+
+         }
+
+         @Override public void onChildItemClick(View v, int position, FAQHeaderDataBean dataBean) {
+
+         }
+       });
+   }*/
   //setUpViewPager()还能里面的参数还能设置轮播图片下面的小圆点
-  private void setUpViewPager(final ViewPager viewPager, List<ImageView> imageVpData,
+  /*private void setUpViewPager(final ViewPager viewPager, List<ImageView> imageVpData,
       LinearLayout llBottom) {
     mViewPagerImageAdapterHead = new ViewPagerImageAdapterHead(mContext, imageVpData);
     viewPager.setAdapter(mViewPagerImageAdapterHead);
 
-    /*final Handler mHandler = new Handler() {
+    *//*final Handler mHandler = new Handler() {
       public void handleMessage(Message message) {
         switch (message.what) {
           case UPTATE_VIEWPAGER:
@@ -123,7 +144,7 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
               break;
         }
       }
-    };*/
+    };*//*
     //创建初始化底部指示位置的导航栏
     //创建一个ImageView类型的数组,仅仅只有数量，数组里面并没有具体的元素
     mCircleImages = new ImageView[mHeaderAdData.size()];
@@ -168,7 +189,7 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
       //此方法是在状态改变的时候调用，其中state这个参数有三种状态
       @Override public void onPageScrollStateChanged(int state) {
 
-     /* Timer timer = new Timer();
+     *//* Timer timer = new Timer();
       timer.schedule(new TimerTask() {
         @Override public void run() {
           Message message = new Message();
@@ -180,11 +201,11 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
           mHandler.sendMessage(message);
         }
       }, 8000, 8000);
-      }*/
+      }*//*
       }
     });
-  }
+  }*/
   @Override public int getItemCount() {
-    return mHeaderView + mData.size() + mBottomView;
+    return mHeaderView + mData.size();
   }
 }

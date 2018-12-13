@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--android:clipChildren的意思：是否限制子View在其范围内，
+我们将其值设置为false后那么当子控件的高度高于父控件时也会完全显示,而不会被压缩。-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+  <android.support.v7.widget.RecyclerView android:id="@+id/recycler_faq"
+      android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+</LinearLayout>
