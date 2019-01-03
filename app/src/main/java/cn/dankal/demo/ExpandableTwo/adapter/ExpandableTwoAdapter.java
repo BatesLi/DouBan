@@ -6,17 +6,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import cn.dankal.demo.ExpandableTwo.bean.StoryBean;
+import cn.dankal.demo.ExpandableTwo.bean.NewsBean;
 import cn.dankal.demo.ExpandableTwo.viewHolder.ExpandableTwoViewHolder;
 import cn.dankal.demo.R;
 import java.util.List;
 
 public class ExpandableTwoAdapter extends RecyclerView.Adapter {
 
-  public List<StoryBean.StoriesBean> mStoriesBeanList;
+  public List<NewsBean.StoriesBean> mStoriesBeanList;
   public Context mContext;
 
-  public ExpandableTwoAdapter(List<StoryBean.StoriesBean> storiesBeanList, Context context) {
+  public ExpandableTwoAdapter(List<NewsBean.StoriesBean> storiesBeanList, Context context) {
     this.mStoriesBeanList = storiesBeanList;
     this.mContext = context;
   }

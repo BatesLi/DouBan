@@ -4,24 +4,24 @@ import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class InquisitiveServe {
+public class NewsService {
 
-  private static InquisitiveApi getInquisitiveData = null;
+  private static NewsApi getNewsData = null;
 
-  public static InquisitiveApi getInquisitiveData() {
-    if (getInquisitiveData == null) {
-      synchronized (InquisitiveApi.class) {
-        if (getInquisitiveData == null) {
+  public static NewsApi getNewsJsonData() {
+    if (getNewsData == null) {
+      synchronized (NewsApi.class) {
+        if (getNewsData == null) {
           Retrofit retrofit = new Retrofit.Builder()
-              .baseUrl("http://app3.qdaily.com/app3/")
+              .baseUrl("http://news-at.zhihu.com/")
               .addConverterFactory(GsonConverterFactory.create())
               .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
               .build();
-          getInquisitiveData = retrofit.create(InquisitiveApi.class);
+          getNewsData = retrofit.create(NewsApi.class);
         }
       }
     }
-    return getInquisitiveData;
+    return getNewsData;
   }
 }
 

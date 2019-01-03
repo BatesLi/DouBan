@@ -2,7 +2,7 @@ package cn.dankal.demo.ExpandableTwo.bean;
 
 import java.util.List;
 
-public class StoryBean {
+public class NewsBean {
 
   /**
    * date : 20181211

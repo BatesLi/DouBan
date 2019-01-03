@@ -7,15 +7,25 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import cn.dankal.demo.ExpandableTwo.api.StoryService;
+import cn.dankal.demo.ExpandableTwo.bean.NewsBean;
 import cn.dankal.demo.R;
 import cn.dankal.demo.ViewPagerHeaderMvp.ViewHolder.ContentViewHolder;
 import cn.dankal.demo.ViewPagerHeaderMvp.ViewHolder.FAQViewHolder;
+import cn.dankal.demo.ViewPagerHeaderMvp.api.NewsApi;
 import cn.dankal.demo.ViewPagerHeaderMvp.bean.DataListTree;
 import cn.dankal.demo.ViewPagerHeaderMvp.bean.FAQData;
 import java.util.ArrayList;
 import java.util.List;
+import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
+import retrofit2.converter.gson.GsonConverterFactory;
+import rx.Observable;
+import rx.Observer;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
 
-public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class NewsStoryAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
   private static final int ITEM_TYPE_HEADER = 0;
   private static final int ITEM_TYPE_CONTENT = 1;
@@ -28,11 +38,12 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
   private static final int UPTATE_VIEWPAGER = 0;
 
   public Context mContext;
-  public List<Integer> mData;
+  public List<cn.dankal.demo.ViewPagerHeaderMvp.bean.NewsBean.StoriesBean> mData;
+  public List<cn.dankal.demo.ViewPagerHeaderMvp.bean.NewsBean.TopStoriesBean> topStoriesBeanList;
   public List<FAQData> mFaqData;//头部 recycler的临时数据
   public FAQHeaderAdapter mFaqHeaderAdapter;//头部的 adapter
-  public ExpandableRecyclerAdapter mExpandableRecyclerAdapter; //头部 二号adapter
-  public List<DataListTree<String, String>> mDataListTree;// 头部 二号 recycler的临时数据
+  public ExpandableNewStoryTopAdapter mExpandableRecyclerAdapter; //头部 二号adapter
+  public List<DataListTree<String, cn.dankal.demo.ViewPagerHeaderMvp.bean.NewsBean.TopStoriesBean>> mDataListTree;// 头部 二号 recycler的临时数据
   public List<ImageView> mHeaderAdData;
   public int[] imgData =
       {R.mipmap.item1, R.mipmap.item2, R.mipmap.item3, R.mipmap.item4, R.mipmap.item5};
@@ -46,7 +57,7 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
   private int currentIndex = 0;
   private ImageView[] mCircleImages;//底部只是当前页面的小圆点
 
-  public ViewAdapterHeaderAdapter(Context context, List<Integer> data) {
+  public NewsStoryAdapter(Context context, List<cn.dankal.demo.ViewPagerHeaderMvp.bean.NewsBean.StoriesBean> data) {
     this.mContext = context;
     this.mData = data;
     mLayoutInflater = LayoutInflater.from(context);
@@ -76,6 +87,7 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
     if (holder instanceof ContentViewHolder) {
       //转型
       //ContentViewHolder contentHolder = (ContentViewHolder) holder;
+      ((ContentViewHolder) holder).mTxtShowNews.setText(mData.get(position).getTitle());
     /*} else if (holder instanceof HeaderViewHolder) {
       HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
       mHeaderAdData = new ArrayList<>();
@@ -93,17 +105,11 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
        FAQData faqData = new FAQData("问题分类",i);
       mFaqData.add(faqData);
       }*/
+      getTopStoryData(topStoriesBeanList);
       mDataListTree = new ArrayList<>();
-      //带有泛型的类如何处理
-      List<String> faqs = new ArrayList<>();
-      faqs.add("");
-      faqs.add("");
-      faqs.add("");
-      faqs.add("");
+      mDataListTree.add(new DataListTree<>("问题列表",topStoriesBeanList));
 
-      mDataListTree.add(new DataListTree<>("问题分类", faqs));
-
-      mExpandableRecyclerAdapter = new ExpandableRecyclerAdapter(mContext, mDataListTree);
+      mExpandableRecyclerAdapter = new ExpandableNewStoryTopAdapter(mContext,mDataListTree);
       mExpandableRecyclerAdapter.setData(mDataListTree);
       faqViewHolder.mRecyclerFaq.setAdapter(mExpandableRecyclerAdapter);
       RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
@@ -207,5 +213,32 @@ public class ViewAdapterHeaderAdapter extends RecyclerView.Adapter<RecyclerView.
   }*/
   @Override public int getItemCount() {
     return mHeaderView + mData.size();
+  }
+  //获得expandable的网络数据
+  public void getTopStoryData(List<cn.dankal.demo.ViewPagerHeaderMvp.bean.NewsBean.TopStoriesBean>
+      topStoriesBeans) {
+    this.topStoriesBeanList = topStoriesBeans;
+    Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl("http://news-at.zhihu.com/")
+        .addConverterFactory(GsonConverterFactory.create())
+        .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .build();
+    NewsApi newsApi = retrofit.create(NewsApi.class);
+    Observable<cn.dankal.demo.ViewPagerHeaderMvp.bean.NewsBean> topNews = newsApi.getNewsData();
+    topNews.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Observer<cn.dankal.demo.ViewPagerHeaderMvp.bean.NewsBean>() {
+          @Override public void onCompleted() {
+
+          }
+
+          @Override public void onError(Throwable e) {
+
+          }
+
+          @Override public void onNext(cn.dankal.demo.ViewPagerHeaderMvp.bean.NewsBean newsBean) {
+            topStoriesBeans.addAll(newsBean.getTop_stories());
+          }
+        });
   }
 }

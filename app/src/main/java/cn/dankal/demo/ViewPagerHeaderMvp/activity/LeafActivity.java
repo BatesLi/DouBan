@@ -9,7 +9,7 @@ import cn.dankal.demo.R;
 import cn.dankal.demo.ViewPagerHeaderMvp.adapter.ViewPagerFgAdapter;
 import cn.dankal.demo.ViewPagerHeaderMvp.base.BaseActivity;
 import cn.dankal.demo.ViewPagerHeaderMvp.base.BasePresenter;
-import cn.dankal.demo.ViewPagerHeaderMvp.fragment.InquisitiveFragment;
+import cn.dankal.demo.ViewPagerHeaderMvp.fragment.NewsFragment;
 import cn.dankal.demo.ViewPagerHeaderMvp.fragment.LoginFragment;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +39,7 @@ public class LeafActivity extends BaseActivity {
     List<Fragment> baseFragmentList = new ArrayList<>();
     baseFragmentList.add(new LoginFragment());
     baseFragmentList.add(new LoginFragment());
-    baseFragmentList.add(new InquisitiveFragment());
+    baseFragmentList.add(new NewsFragment());
     mViewPagerContentLeaf.setOffscreenPageLimit(3);
     mViewPagerContentLeaf.setAdapter(
         new ViewPagerFgAdapter(getSupportFragmentManager(), baseFragmentList,

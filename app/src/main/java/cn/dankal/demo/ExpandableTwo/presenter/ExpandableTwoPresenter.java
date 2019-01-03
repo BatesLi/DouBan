@@ -3,9 +3,8 @@ package cn.dankal.demo.ExpandableTwo.presenter;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import cn.dankal.demo.ExpandableTwo.api.StoryService;
-import cn.dankal.demo.ExpandableTwo.bean.StoryBean;
+import cn.dankal.demo.ExpandableTwo.bean.NewsBean;
 import cn.dankal.demo.ExpandableTwo.contact.ExpandableTwoContact;
-import java.util.List;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -19,19 +18,19 @@ public class ExpandableTwoPresenter implements ExpandableTwoContact.ExpandableTw
   public ExpandableTwoContact.ExpandableTwoIView iView;
   private static final String TAG = "main";
 
-  @Override public void RequestData(String url, ExpandableTwoContact.OnClick onClick) {
+  @Override public void RequestData() {
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl(url)
+        .baseUrl("http://news-at.zhihu.com/")
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
         .build();
     //动态代理得到网络接口
     StoryService storyService = retrofit.create(StoryService.class);
 
-    Observable<StoryBean> wxNews = storyService.getStoryData();
+    Observable<NewsBean> wxNews = storyService.getStoryData();
     wxNews.subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(new Observer<StoryBean>() {
+        .subscribe(new Observer<NewsBean>() {
           @Override public void onCompleted() {
 
           }
@@ -40,10 +39,9 @@ public class ExpandableTwoPresenter implements ExpandableTwoContact.ExpandableTw
             Log.d(TAG, "onError:============ ");
           }
 
-          @Override public void onNext(StoryBean storyBean) {
-            //将值传出去
-            List<StoryBean.StoriesBean> storiesBeanList = storyBean.getStories();
-            iView.Success(storiesBeanList);
+          @Override public void onNext(NewsBean storyBean) {
+            //通过接口将值传出去
+           iView.Success(storyBean.getStories());
           }
         });
   }

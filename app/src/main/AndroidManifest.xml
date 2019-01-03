@@ -18,7 +18,7 @@
       android:roundIcon="@mipmap/ic_launcher_round"
       android:supportsRtl="true"
       android:theme="@style/AppTheme">
-    <activity android:name=".ExpandableTwo.ExpandableTwoActivity">
+    <activity android:name=".user.LoginActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
@@ -46,8 +46,12 @@
     <activity android:name=".Expandable.ExpandableActivity">
     </activity>
         -->
-    <!-- <activity android:name=".ExpandableTwo.ExpandableTwoActivity">
-     </activity>-->
+    <!--
+     <activity android:name=".ExpandableTwo.ExpandableTwoActivity">
+     </activity>
+        -->
+    <!--<activity android:name=".ExpandableThree.ExpandableThreeActivity">
+    </activity>-->
   </application>
 
 </manifest>
