@@ -21,6 +21,7 @@
     <activity android:name=".user.LoginActivity">
       <intent-filter>
         <action android:name="android.intent.action.MAIN"/>
+
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
@@ -50,8 +51,12 @@
      <activity android:name=".ExpandableTwo.ExpandableTwoActivity">
      </activity>
         -->
-    <!--<activity android:name=".ExpandableThree.ExpandableThreeActivity">
-    </activity>-->
+    <!--
+    <activity android:name=".ExpandableThree.ExpandableThreeActivity">
+    </activity>
+        -->
+    <activity android:name=".ExpandableRecyclerView.ExpandableRecyclerActivity">
+    </activity>
   </application>
 
 </manifest>

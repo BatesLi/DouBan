@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ExpandableRecyclerView.ExpandableRecyclerActivity"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical">
+  <android.support.v7.widget.Toolbar android:id="@+id/toolbar_expandable_recycler"
+      android:layout_width="match_parent" android:layout_height="wrap_content"
+      android:background="@color/card_3">
+    <TextView
+        android:layout_width="wrap_content" android:layout_height="wrap_content"
+        android:text="二级列表" android:textSize="20sp"
+        android:textColor="@color/white"/>
+  </android.support.v7.widget.Toolbar>
+
+  <android.support.v7.widget.RecyclerView android:id="@+id/recycler_expandable_tale"
+      android:layout_width="match_parent" android:layout_height="wrap_content">
+
+  </android.support.v7.widget.RecyclerView>
+</LinearLayout>

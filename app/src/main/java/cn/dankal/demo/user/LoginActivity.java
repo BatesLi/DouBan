@@ -11,6 +11,7 @@ import butterknife.OnClick;
 import butterknife.OnTextChanged;
 import cn.dankal.basic_lib.base.BaseActivity;
 import cn.dankal.demo.DouBanMvp.DouBanActivity;
+import cn.dankal.demo.ExpandableRecyclerView.ExpandableRecyclerActivity;
 import cn.dankal.demo.R;
 import cn.dankal.demo.ViewPagerHeaderMvp.activity.LeafActivity;
 import cn.dankal.demo.ZhiHuMvp.ZhiHuActivity;
@@ -36,9 +37,10 @@ public class LoginActivity extends BaseActivity implements LoginContact.LoginVie
     @BindView(R.id.btn_douban) Button mBtnDouBan;//豆瓣临时入口
   @BindView(R.id.btn_zhihu) Button mBtnZhiHu;//知乎临时入口
   @BindView(R.id.btn_zhihu_test) Button mBtnZhiHuTest;//知乎测试MVP模式的入口
+  @BindView(R.id.btn_expandable) Button mBtnExpandable;//二级列表的入口
 
   @OnClick({R.id.btn_view_pager, R.id.btn_douban, R.id.btn_zhihu
-      , R.id.btn_zhihu_test}) void onClickViewpager(View view) {
+      , R.id.btn_zhihu_test, R.id.btn_expandable}) void onClickViewpager(View view) {
     switch (view.getId()) {
       case R.id.btn_view_pager:
         Intent intent = new Intent(view.getContext(), LeafActivity.class);
@@ -55,6 +57,11 @@ public class LoginActivity extends BaseActivity implements LoginContact.LoginVie
       case R.id.btn_zhihu_test:
         Intent intentZhiHuTest = new Intent(view.getContext(), ZhiHuTestActivity.class);
         startActivity(intentZhiHuTest);
+        break;
+      case R.id.btn_expandable:
+        Intent intentExpandableRecycler =
+            new Intent(view.getContext(), ExpandableRecyclerActivity.class);
+        startActivity(intentExpandableRecycler);
         break;
       default:
         break;
